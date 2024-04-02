@@ -3,43 +3,39 @@ import java.io.FileReader;
 import java.io.IOException;
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         
         String filePath = "C:\\Users\\asus\\Documents\\Groceries.txt";
-        String[] id = new String[100];
-        String[] itemName = new String[100];
-        String[] quantity = new String[100];
-        double[] price = new double[100];
+        String [] array = new String[4];
+        String id;
+        String itemName;
+        String quantity;
+        double price;
+        String separator = ",";
+         double total = 0;
 
-        int itemCount = 0;
-        double totalPrice = 0.0;
-
-        try {
+     
 
             FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            BufferedReader reader = new BufferedReader(fileReader);
 
             String line;
             
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] tokens = line.split(",");
+            while ((line = reader.readLine()) != null) {
+                array = line.split(separator);
 
-                id[itemCount] = tokens[0];
-                itemName[itemCount] = tokens[1];
-                quantity[itemCount] = tokens[2];
-                price[itemCount] = Double.parseDouble(tokens[3]);
+                price = Double.parseDouble(array[3]);
+
+                total += price;
 
                 System.out.println(line);
 
-                // Increment item count and calculate total price
 
-                itemCount++;
-                totalPrice += price[itemCount - 1];
             }
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Total Price: $" + totalPrice);
+            
+        System.out.println("\n" + "Total price of groceries: " + Math.round(total));
+            reader.close();
+        } 
+
     }
-}
+
